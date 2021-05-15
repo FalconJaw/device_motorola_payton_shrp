@@ -62,7 +62,9 @@ TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_PREBUILT_KERNEL := $(PLATFORM_PATH)/Image.gz-dtb
 BOARD_KERNEL_CMDLINE := console=ttyMSM0,115200,n8 androidboot.console=ttyMSM0 earlycon=msm_serial_dm,0xc170000 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 sched_enable_hmp=1 sched_enable_power_aware=1 service_locator.enable=1 swiotlb=1 androidboot.configfs=true androidboot.usbcontroller=a800000.dwc3 androidboot.hab.csv=2 androidboot.hab.product=payton androidboot.hab.cid=50
 # For the love of all that is holy, please do not include this in your ROM unless you really want TWRP to not work correctly!
+BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 BOARD_KERNEL_CMDLINE += androidboot.fastboot=1
+BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_TAGS_OFFSET := 0x00000100
@@ -105,10 +107,11 @@ TW_INCLUDE_NTFS_3G := true
 TW_DEFAULT_BRIGHTNESS := 80
 TW_SCREEN_BLANK_ON_BOOT := true
 TW_EXCLUDE_DEFAULT_USB_INIT := true
-TW_EXTRA_LANGUAGES := true
+#TW_EXTRA_LANGUAGES := true
 TARGET_RECOVERY_DEVICE_MODULES += android.hardware.boot@1.0
 TW_USE_TOOLBOX := true
 
+TARGET_USES_HARDWARE_QCOM_BOOTCTRL := true
 # Debug flags
 #TWRP_INCLUDE_LOGCAT := true
 #TARGET_USES_LOGD := true
@@ -118,6 +121,24 @@ BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_COPY_OUT_VENDOR := vendor
 
 # Installer
-USE_RECOVERY_INSTALLER := true
-RECOVERY_INSTALLER_PATH := device/motorola/payton/installer
-TW_INCLUDE_REPACKTOOLS := true
+#USE_RECOVERY_INSTALLER := true
+#RECOVERY_INSTALLER_PATH := device/motorola/payton/installer
+#TW_INCLUDE_REPACKTOOLS := true
+
+# SHRP Flags
+SHRP_DEVICE_CODE := payton
+SHRP_PATH := device/motorola/payton
+SHRP_MAINTAINER := FalconJaw
+SHRP_REC_TYPE := Treble
+SHRP_DEVICE_TYPE := A/B
+SHRP_REC := /dev/block/bootdevice/by-name/recovery
+SHRP_EDL_MODE := 1
+SHRP_INTERNAL := /sdcard
+SHRP_EXTERNAL := /external_sd
+SHRP_OTG := /usb_otg
+#SHRP_FLASH := 1
+SHRP_AB := true
+SHRP_DARK := true
+SHRP_LITE := true
+
+TARGET_USES_64_BIT_BINDER := true
